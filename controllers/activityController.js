@@ -14,12 +14,11 @@ const getActivities = async (req, res) => {
   }
 };
 
-// @desc    Create a new activity (admin functionality - could be added later)
+// @desc    Create a new activity 
 // @route   POST /api/activities
 // @access  Private/Admin
 const createActivity = async (req, res) => {
   try {
-    // Validate request body
     const { error } = activitySchema.validate(req.body);
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
