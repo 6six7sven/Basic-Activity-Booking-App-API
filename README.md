@@ -28,7 +28,7 @@ A RESTful API for a Basic Activity Booking App built with Node.js, Express, and 
 
 1. Clone the repository
    ```
-   git clone https://github.com/yourusername/booking-app.git
+   git clone https://github.com/6six7sven/Basic-Activity-Booking-App-API
    cd booking-app
    ```
 
@@ -48,6 +48,12 @@ A RESTful API for a Basic Activity Booking App built with Node.js, Express, and 
 4. Start the server
    ```
    npm run dev
+   
+   ```
+   or
+   ```
+   npm run start
+   
    ```
 
 The API will be available at `http://localhost:5000`
