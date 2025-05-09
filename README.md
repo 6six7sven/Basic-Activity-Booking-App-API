@@ -53,7 +53,7 @@ A RESTful API for a Basic Activity Booking App built with Node.js, Express, and 
    or
    ```
    npm run start
-   
+
    ```
 
 The API will be available at `http://localhost:5000`
@@ -75,7 +75,3 @@ The API will be available at `http://localhost:5000`
 ## Testing
 
 A Postman collection is included for testing all API endpoints.
-
-## License
-
-MIT
