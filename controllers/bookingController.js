@@ -62,7 +62,50 @@ const getMyBookings = async (req, res) => {
   }
 };
 
+// @desc    Cancel a booking
+// @route   DELETE /api/bookings/:bookingId
+// @access  Private
+const unbookActivity = async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.bookingId);
+
+    // Check if booking exists
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // Check if user owns this booking
+    if (booking.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: 'Not authorized to remove this booking' });
+    }
+
+    // Optional: Check if activity is in the future
+    const activity = await Activity.findById(booking.activity);
+    const activityDate = new Date(activity.dateTime);
+    const currentDate = new Date();
+    
+    // You may want to enforce a cancellation policy (e.g., can only cancel 24 hours before)
+    const cancellationDeadline = new Date(activityDate);
+    cancellationDeadline.setHours(cancellationDeadline.getHours() - 24);
+    
+    if (currentDate > cancellationDeadline) {
+      return res.status(400).json({ 
+        message: 'Cannot cancel bookings less than 24 hours before the activity' 
+      });
+    }
+
+    // Use deleteOne() instead of remove()
+    await Booking.deleteOne({ _id: booking._id });
+    
+    res.status(200).json({ message: 'Booking cancelled successfully' });
+  } catch (error) {
+    console.error('Unbooking error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   bookActivity,
-  getMyBookings
+  getMyBookings,
+  unbookActivity
 };

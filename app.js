@@ -15,7 +15,11 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://your-frontend-domain.com' 
+    : 'http://localhost:5173' // Default Vite dev server port
+}));
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
